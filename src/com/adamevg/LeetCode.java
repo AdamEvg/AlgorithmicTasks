@@ -269,8 +269,65 @@ public class LeetCode {
 
     public int missingNumberV2(int[] nums) {
         int currentSum = Arrays.stream(nums).sum();
-        int expectedSum = nums.length*(nums.length+1)/2;
-        return expectedSum  - currentSum;
+        int expectedSum = nums.length * (nums.length + 1) / 2;
+        return expectedSum - currentSum;
+    }
+
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode() {}
+     * ListNode(int val) { this.val = val; }
+     * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+     * }
+     */
+
+//    Input: head = [1,2,2,1]
+//    Output: true
+
+    class Solution {
+        public boolean isPalindrome(ListNode head) {
+            if (head == null || head.next == null) return true;
+            ListNode mid = getMiddleNode(head);
+            ListNode secondHead = getReversedNode(mid);
+            ListNode left = head;
+            ListNode right = secondHead;
+            while (right != null) {
+                if (left.val != right.val) {
+                    // getReversedNode(secondHead);
+                    return false;
+                }
+                left = left.next;
+                right = right.next;
+            }
+            // getReversedNode(secondHead);
+            return true;
+        }
+
+        private ListNode getMiddleNode(ListNode head) {
+            ListNode slow = head;
+            ListNode fast = head.next;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            return slow.next;
+        }
+
+        private ListNode getReversedNode(ListNode mid) {
+            ListNode curr = mid;
+            ListNode prev = null;
+            while (curr != null) {
+                ListNode next = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = next;
+            }
+            return prev;
+        }
+
     }
 
 }
