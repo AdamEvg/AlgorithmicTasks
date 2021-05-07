@@ -327,7 +327,18 @@ public class LeetCode {
             }
             return prev;
         }
+    }
 
+    public boolean hasCycle(ListNode head) {
+        if(head == null) return false;
+        ListNode slowPointer = head;
+        ListNode fastPointer = head.next;
+        while(slowPointer!=fastPointer){
+            if(fastPointer ==null || fastPointer.next == null) return false;
+            fastPointer = fastPointer.next.next;
+            slowPointer = slowPointer.next;
+        }
+        return true;
     }
 
 }
