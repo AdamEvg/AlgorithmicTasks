@@ -250,4 +250,27 @@ public class LeetCode {
         }
     }
 
+    //    Input: nums = [3,0,1]
+//    Output: 2
+    public int missingNumber(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        if (nums[n - 1] != n) {
+            return n;
+        }
+
+        for (int i = 1; i < n; i++) {
+            if (nums[i] - nums[i - 1] != 1) {
+                return nums[i] - 1;
+            }
+        }
+        return 0;
+    }
+
+    public int missingNumberV2(int[] nums) {
+        int currentSum = Arrays.stream(nums).sum();
+        int expectedSum = nums.length*(nums.length+1)/2;
+        return expectedSum  - currentSum;
+    }
+
 }
